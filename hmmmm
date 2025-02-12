@@ -3508,3 +3508,108 @@ local Toggle = Tab:CreateToggle({
         end
    end,
 })
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Check if the player's ID matches yours
+if LocalPlayer.UserId == 7264437267 then
+    -- Create the owner-only tab
+    local OwnerTab = Window:CreateTab("Owner Stuff")
+    
+
+    -- Example: Freeze Button
+    local FreezeButton = OwnerTab:CreateButton({
+        Name = "Freeze Target",
+        Callback = function()
+            local targetCharacter = LocalPlayer.Character
+            if targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart") then
+                targetCharacter.HumanoidRootPart.Anchored = true
+            end
+        end,
+    })
+
+    -- Example: Unfreeze Button
+    local UnfreezeButton = OwnerTab:CreateButton({
+        Name = "Unfreeze Target",
+        Callback = function()
+            local targetCharacter = LocalPlayer.Character
+            if targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart") then
+                targetCharacter.HumanoidRootPart.Anchored = false
+            end
+        end,
+    })
+
+    -- Example: Change Avatar Button
+    local ChangeAvatarButton = OwnerTab:CreateButton({
+        Name = "Change Avatar",
+        Callback = function()
+            local replicatedStorage = game:GetService("ReplicatedStorage")
+            local args = {
+                [1] = {
+                    ["SwimAnimation"] = 2510240941,
+                    ["Torso"] = 4637151279,
+                    ["ProportionScale"] = 0,
+                    ["ClimbAnimation"] = 2510230574,
+                    ["Shirt"] = 11289085978,
+                    ["FaceAccessory"] = "13353986061,12580366888,8923599923",
+                    ["HairAccessory"] = "13918965164,14314838611",
+                    ["RightArm"] = 0,
+                    ["Head"] = 0,
+                    ["FallAnimation"] = 2510233257,
+                    ["TorsoColor"] = { [1] = "248", [2] = "248", [3] = "248" },
+                    ["DepthScale"] = 0.8,
+                    ["RightLeg"] = 0,
+                    ["HeightScale"] = 0.9,
+                    ["WaistAccessory"] = "14335771887",
+                    ["Pants"] = 14851012835,
+                    ["JumpAnimation"] = 2510236649,
+                    ["HatAccessory"] = "12579341301,13142881183,1402432199",
+                    ["LeftArm"] = 0,
+                    ["LeftLeg"] = 0,
+                    ["WalkAnimation"] = 2510242378,
+                    ["IdleAnimation"] = 2510235063,
+                    ["RunAnimation"] = 2510238627,
+                    ["HeadScale"] = 1,
+                    ["Face"] = 0,
+                    ["GraphicTShirt"] = 10891067215
+                }
+            }
+            replicatedStorage.FunctionConnections.NewAESaveAvatar:InvokeServer(unpack(args))
+        end,
+    })
+
+    -- Example: Bring Button
+    local BringButton = OwnerTab:CreateButton({
+        Name = "Bring Target",
+        Callback = function()
+            local targetPlayer = game.Players:FindFirstChild("sci_mythical77")
+            if targetPlayer and targetPlayer.Character then
+                local targetHRP = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local myCharacter = LocalPlayer.Character
+                if myCharacter and targetHRP then
+                    local myHRP = myCharacter:FindFirstChild("HumanoidRootPart")
+                    if myHRP then
+                        myHRP.CFrame = targetHRP.CFrame
+                    end
+                end
+            end
+        end,
+    })
+
+    -- Example: Chat Input
+    local ChatInput = OwnerTab:CreateInput({
+        Name = "Send Chat Message",
+        CurrentValue = "",
+        PlaceholderText = "Type message...",
+        RemoveTextAfterFocusLost = false,
+        Flag = "Input1",
+        Callback = function(Text)
+            local TextChatService = game:GetService("TextChatService")
+            local textChannel = TextChatService:WaitForChild("TextChannels"):FindFirstChild("RBXGeneral")
+            if textChannel then
+                textChannel:SendAsync(Text)
+            end
+        end,
+    })
+end
