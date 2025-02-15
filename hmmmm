@@ -3278,6 +3278,27 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/prod
    end,
 })
 
+local Button = Tab:CreateButton({
+   Name = "Remote spy (works for xeno/solara and more)",
+   Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Octo-Spy/refs/heads/main/Main.lua", true))()
+
+-- made by @cherry_peashooter on discord
+-- contact me for suggestions & support
+-- @ScriptBlox, unban me in discord ples
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Dex",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+   end,
+})
+
 local Tab = Window:CreateTab("More Stuff", 133818775236467) -- Title, Image
 
 local Button = Tab:CreateButton({
