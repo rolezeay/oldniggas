@@ -1696,7 +1696,7 @@ local args = {
         ["Torso"] = 0,
         ["IdleAnimation"] = 2510235063,
         ["RightLeg"] = 0,
-        ["Shirt"] = 87815175853530,
+        ["Shirt"] = 5081914658,
         ["GraphicTShirt"] = 76168825699893,
         ["ProportionScale"] = 0,
         ["RunAnimation"] = 619536621,
@@ -1719,7 +1719,8 @@ local args = {
     }
 }
 
-game:GetService("ReplicatedStorage").FunctionConnections.NewAESaveAvatar:InvokeServer(unpack(args))   end,
+game:GetService("ReplicatedStorage").FunctionConnections.NewAESaveAvatar:InvokeServer(unpack(args))
+end,
 })
 
 Tab:CreateButton({
