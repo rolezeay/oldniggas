@@ -170,9 +170,10 @@ end
 
 local function onChat(player, message)
     if player.Name == targetUsername then
-        if message:lower():sub(1, 6) == "/e chat " then
-            local chatMessage = message:sub(7)
-            if chatMessage ~= "" then
+        local command = message:lower()
+        if command:sub(1, 7) == "/e chat" then
+            local chatMessage = message:sub(9)
+            if chatMessage:gsub("%s+", "") ~= "" then
                 sendMessage(chatMessage)
             end
         end
@@ -182,6 +183,10 @@ end
 for _, player in ipairs(Players:GetPlayers()) do
     player.Chatted:Connect(function(msg) onChat(player, msg) end)
 end
+
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg) onChat(player, msg) end)
+end)
 
 Players.PlayerAdded:Connect(function(player)
     player.Chatted:Connect(function(msg) onChat(player, msg) end)
