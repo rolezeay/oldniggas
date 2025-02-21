@@ -3630,6 +3630,108 @@ local function restoreClothing(character)
     end
 end
 
+local originalColors = {} -- Table to store original colors
+local isDarkModeActive = false
+local loopConnection
+
+local function isCloseToRed(color)
+    return color.R > 0.5 and color.G < 0.5 and color.B < 0.5
+end
+
+local function applyDarkColor(obj)
+    if obj:IsA("GuiObject") then
+        if not isCloseToRed(obj.BackgroundColor3) then
+            originalColors[obj] = originalColors[obj] or {} -- Initialize the entry if it doesn't exist
+            originalColors[obj].BackgroundColor3 = obj.BackgroundColor3 -- Store original color
+            obj.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- Dark gray
+            obj.BorderColor3 = Color3.fromRGB(20, 20, 20) -- Dark gray border
+        end
+    end
+
+    if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+        if not isCloseToRed(obj.TextColor3) then
+            originalColors[obj] = originalColors[obj] or {}
+            originalColors[obj].TextColor3 = obj.TextColor3 -- Store original text color
+            obj.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+        end
+    end
+
+    if obj:IsA("ImageLabel") or obj:IsA("ImageButton") then
+        if not isCloseToRed(obj.ImageColor3) then
+            originalColors[obj] = originalColors[obj] or {}
+            originalColors[obj].ImageColor3 = obj.ImageColor3 -- Store original image color
+            obj.ImageColor3 = Color3.fromRGB(20, 20, 20) -- Dark color for images
+        end
+    end
+end
+
+local function revertColors(obj)
+    if originalColors[obj] then
+        if obj:IsA("GuiObject") and originalColors[obj].BackgroundColor3 then
+            obj.BackgroundColor3 = originalColors[obj].BackgroundColor3
+            obj.BorderColor3 = Color3.fromRGB(255, 255, 255) -- Assuming you want to revert the border color too
+        end
+
+        if (obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox")) and originalColors[obj].TextColor3 then
+            obj.TextColor3 = originalColors[obj].TextColor3
+        end
+
+        if (obj:IsA("ImageLabel") or obj:IsA("ImageButton")) and originalColors[obj].ImageColor3 then
+            obj.ImageColor3 = originalColors[obj].ImageColor3
+        end
+    end
+end
+
+local function applyDarkModeToAllGuis()
+    local playerGui = game.Players.LocalPlayer:FindFirstChild("PlayerGui")
+
+    if playerGui then
+        for _, gui in ipairs(playerGui:GetChildren()) do
+            for _, obj in ipairs(gui:GetDescendants()) do
+                applyDarkColor(obj)
+            end
+        end
+    end
+end
+
+local function revertDarkModeToAllGuis()
+    local playerGui = game.Players.LocalPlayer:FindFirstChild("PlayerGui")
+
+    if playerGui then
+        for _, gui in ipairs(playerGui:GetChildren()) do
+            for _, obj in ipairs(gui:GetDescendants()) do
+                revertColors(obj)
+            end
+        end
+    end
+end
+
+local Toggle = Tab:CreateToggle({
+    Name = "Dark ui elements (WIP)",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file
+    Callback = function(Value)
+        isDarkModeActive = Value
+        if Value then
+            applyDarkModeToAllGuis()
+
+            -- Start a loop that continually applies dark mode
+            loopConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                if isDarkModeActive then
+                    applyDarkModeToAllGuis()
+                else
+                    loopConnection:Disconnect() -- Stop the loop if dark mode is inactive
+                end
+            end)
+        else
+            revertDarkModeToAllGuis() -- Revert colors when toggled off
+            if loopConnection then
+                loopConnection:Disconnect() -- Ensure the loop is stopped
+            end
+        end
+    end,
+})
+
 local Toggle = Tab:CreateToggle({
    Name = "Remove player clothes (visual)",
    CurrentValue = false,
