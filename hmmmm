@@ -1,5 +1,4 @@
-
-local userId = game.Players.LocalPlayer.UserId -- Make sure to adjust this based on your executor's environment
+local userId = game.Players.LocalPlayer.UserId
 
 if userId == 7264437267 or userId == 1505537066 then
     local player = game.Players.LocalPlayer
