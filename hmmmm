@@ -1997,6 +1997,99 @@ game:GetService("ReplicatedStorage").FunctionConnections.NewAESaveAvatar:InvokeS
    end,
 })
 
+local Button = Tab:CreateButton({
+   Name = "cat fit 2",
+   Callback = function()
+               local args = {
+    [1] = {
+        ["SwimAnimation"] = 0;
+        ["WalkAnimation"] = 0;
+        ["ProportionScale"] = 0.511454701423645;
+        ["RightLegColor"] = {
+            [1] = "248.0000004172325";
+            [2] = "248.0000004172325";
+            [3] = "248.0000004172325";
+        };
+        ["HatAccessory"] = "98144560652085";
+        ["Torso"] = 111532289455125;
+        ["JumpAnimation"] = 0;
+        ["IdleAnimation"] = 0;
+        ["BodyTypeScale"] = 0.5962028503417969;
+        ["ClimbAnimation"] = 0;
+        ["Shirt"] = 11335258282;
+        ["Emotes"] = {
+            ["1"] = {
+                [1] = 14548709888;
+            };
+            ["8"] = {
+                [1] = 5915776835;
+            };
+            ["3"] = {
+                [1] = 10370922566;
+            };
+            ["2"] = {
+                [1] = 12874468267;
+            };
+            ["5"] = {
+                [1] = 7466046574;
+            };
+            ["4"] = {
+                [1] = 11753545334;
+            };
+            ["7"] = {
+                [1] = 4646306583;
+            };
+            ["6"] = {
+                [1] = 4689362868;
+            };
+        };
+        ["GraphicTShirt"] = 0;
+        ["RightArmColor"] = {
+            [1] = "248.0000004172325";
+            [2] = "248.0000004172325";
+            [3] = "248.0000004172325";
+        };
+        ["RightLeg"] = 131359873709031;
+        ["WidthScale"] = 1.0517624616622925;
+        ["Pants"] = 4080983570;
+        ["RightArm"] = 126637196984684;
+        ["FallAnimation"] = 0;
+        ["Head"] = 0;
+        ["LeftLegColor"] = {
+            [1] = "248.0000004172325";
+            [2] = "248.0000004172325";
+            [3] = "248.0000004172325";
+        };
+        ["Face"] = 15432080;
+        ["LeftArmColor"] = {
+            [1] = "248.0000004172325";
+            [2] = "248.0000004172325";
+            [3] = "248.0000004172325";
+        };
+        ["LeftLeg"] = 104113560860424;
+        ["HeadColor"] = {
+            [1] = "248.0000004172325";
+            [2] = "248.0000004172325";
+            [3] = "248.0000004172325";
+        };
+        ["TorsoColor"] = {
+            [1] = "248.0000004172325";
+            [2] = "248.0000004172325";
+            [3] = "248.0000004172325";
+        };
+        ["DepthScale"] = 1.0188917815685272;
+        ["LeftArm"] = 98964144815454;
+        ["HeadScale"] = 1;
+        ["HeightScale"] = 0.986021101474762;
+        ["RunAnimation"] = 0;
+        ["WaistAccessory"] = "120583292739858";
+    };
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("FunctionConnections", 9e9):WaitForChild("NewAESaveAvatar", 9e9):InvokeServer(unpack(args))
+   end,
+})
+
 Tab:CreateButton({
     Name = "Kid",
     Callback = function()
