@@ -915,7 +915,7 @@ end
 local Section = Tab:CreateSection("Or just crash the server with this.")
 
 local Button = Tab:CreateButton({
-   Name = "CRASH SERVER",
+   Name = "LAG SERVER",
    Callback = function()
  -- Start both actions simultaneously when the button is clicked
         -- Activate Loop Drop All
