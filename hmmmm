@@ -2830,7 +2830,7 @@ local Input = Tab:CreateInput({
 })
 
 local Input = Tab:CreateInput({
-   Name = "Walkspeed",
+   Name = "Jumppower",
    CurrentValue = "",
    PlaceholderText = "enter jumppower",
    RemoveTextAfterFocusLost = false,
